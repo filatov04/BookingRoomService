@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 
 //Здесь потом нужно будет добавить конфигурацию PostgreSQL или In-memory-cache DB
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("TaskManagerInMemoryDb"));
+    options.UseInMemoryDatabase("BookingRoomServiceInMemoryDb"));
 
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
