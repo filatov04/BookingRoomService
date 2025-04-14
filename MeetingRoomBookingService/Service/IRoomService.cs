@@ -8,7 +8,7 @@ namespace MeetingRoomBookingService.Service
         Task<List<RoomResponseDTO>> GetAllRoomAsync();
         Task<List<RoomResponseDTO>> GetAllFilteredRoomAsync(int capacity = 5);
         Task<List<RoomResponseDTO>> GetAllFilteredRoomByDateAsync(DateTime date);
-        Task<RoomResponseDTO?> AddRoomAyncs(RoomCreateDTO room, Role role);
+        Task<RoomResponseDTO?> AddRoomAsync(RoomCreateDTO room, Role role);
         Task<RoomResponseDTO?> EditRoomAsync(RoomCreateDTO room, Role role, Guid Id);
     }
 }

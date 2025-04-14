@@ -10,22 +10,21 @@ namespace MeetingRoomBookingService.Repository
 
         public BookingRepository(AppDbContext context) => _context = context;
 
-        public async Task<Booking?> BookingRoomAsync(DateTime time, Guid IdRoom, double BookingTime, Guid UserId, string Description)
-        {
-            DateTime EndBookingTime = time.AddHours(BookingTime);
-            if (BookingTime > 3) return null;
-            if (time < DateTime.Now) return null;
+        public async Task<Booking?> BookingRoomAsync(Booking booking)
+        { 
+            if ((booking.EndBooking - booking.StartBooking).TotalHours > 3) return null;
+            if (booking.StartBooking < DateTime.Now) return null;
             bool IsAvailable = await _context.Bookings
-                .AnyAsync(b => b.RoomEntity.Id == IdRoom && b.StartBooking > EndBookingTime && b.EndBooking < time);
+                .AnyAsync(b => b.RoomEntity.Id == booking.RoomId && b.StartBooking > booking.EndBooking && b.EndBooking < booking.StartBooking);
 
             if (IsAvailable)
             {
                 Booking newBooking = new Booking {
-                    RoomId = IdRoom,
-                    StartBooking = time,
-                    EndBooking = EndBookingTime,
-                    UserId = UserId,
-                    Description = Description
+                    RoomId = booking.RoomId,
+                    StartBooking = booking.StartBooking,
+                    EndBooking = booking.EndBooking,
+                    UserId = booking.UserId,
+                    Description = booking.Description
                 };
 
                 _context.Bookings.Add(newBooking);

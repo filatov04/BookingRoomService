@@ -4,7 +4,7 @@ namespace MeetingRoomBookingService.Repository
 {
     public interface IBookingRepository
     {
-        Task<Booking?> BookingRoomAsync(DateTime time, Guid IdRoom, double BookingTime, Guid UserId, string Description);
+        Task<Booking?> BookingRoomAsync(Booking booking);
         Task<Booking?> CancellationBookingRoomAsync(Guid IdBooking, Role role);
     }
 }
