@@ -20,10 +20,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-    <Folder Include="Mapper\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
-
 </Project>

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeetingRoomBookingService.Repository
 {
-    public class RoomRepository : IRoomRepository
+    public class RoomRepository : BaseRepository<Room>, IRoomRepository
     {
-        private readonly AppDbContext _context;
-
-        public RoomRepository(AppDbContext context) => _context = context;
+        public RoomRepository(AppDbContext context) : base(context)
+        {
+        }
 
         public async Task<List<Room>> GetAllRoomAsync()
         {
@@ -30,19 +30,19 @@ namespace MeetingRoomBookingService.Repository
 
         public async Task<Room?> AddRoomAsync(Room room, Role role)
         {
-            if(role >= Role.SeniorSpecialist)
+            if (role >= Role.SeniorSpecialist)
             {
                 _context.Rooms.Add(room);
                 await _context.SaveChangesAsync();
                 return room;
             }
             return null;
-            
+
         }
 
         public async Task<Room?> EditRoomAsync(Room room, Role role, Guid Id)
         {
-            if(role >= Role.SeniorSpecialist)
+            if (role >= Role.SeniorSpecialist)
             {
                 var item = await _context.Rooms.FirstOrDefaultAsync(t => t.Id == Id);
                 item.Name = room.Name;
@@ -53,5 +53,37 @@ namespace MeetingRoomBookingService.Repository
             return null;
         }
 
+    }
+
+    public interface IRepository<T> where T : class
+    {
+        Task<T?> GetAsync(int id);
+        Task<T> UpdateAsync(T entity);
+        Task DeleteAsync(int id);
+    }
+
+    public abstract class BaseRepository<T> : IRepository<T> where T : class
+    {
+        protected readonly AppDbContext _context;
+
+        public BaseRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<T?> GetAsync(int id)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync();
+        }
+
+        public Task<T> UpdateAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

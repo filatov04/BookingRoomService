@@ -6,5 +6,6 @@ namespace MeetingRoomBookingService.Repository
     {
         Task<Booking?> BookingRoomAsync(Booking booking);
         Task<Booking?> CancellationBookingRoomAsync(Guid IdBooking, Role role);
+        Task<bool> IsBookingByDate(Guid id, DateTime start, DateTime end);
     }
 }

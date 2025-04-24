@@ -5,7 +5,7 @@ namespace MeetingRoomBookingService.Service
 {
     public interface IRoomService
     {
-        Task<List<RoomResponseDTO>> GetAllRoomAsync();
+        Task<List<RoomResponseDTO>> GetAllRoomAsync(CancellationToken ct = default);
         Task<List<RoomResponseDTO>> GetAllFilteredRoomAsync(int capacity = 5);
         Task<List<RoomResponseDTO>> GetAllFilteredRoomByDateAsync(DateTime date);
         Task<RoomResponseDTO?> AddRoomAsync(RoomCreateDTO room, Role role);

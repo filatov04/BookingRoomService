@@ -12,8 +12,6 @@ namespace MeetingRoomBookingService.Repository
 
         public async Task<Booking?> BookingRoomAsync(Booking booking)
         { 
-            if ((booking.EndBooking - booking.StartBooking).TotalHours > 3) return null;
-            if (booking.StartBooking < DateTime.Now) return null;
             bool IsAvailable = await _context.Bookings
                 .AnyAsync(b => b.RoomEntity.Id == booking.RoomId && b.StartBooking > booking.EndBooking && b.EndBooking < booking.StartBooking);
 
@@ -51,5 +49,9 @@ namespace MeetingRoomBookingService.Repository
             return null;
         }
 
+        public Task<bool> IsBookingByDate(Guid id, DateTime start, DateTime end)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

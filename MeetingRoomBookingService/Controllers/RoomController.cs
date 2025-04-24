@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MeetingRoomBookingService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -17,13 +17,13 @@ namespace MeetingRoomBookingService.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetAllRoom()
+        public async Task<IActionResult> GetAllRoom(CancellationToken ct)
         {
             var AllRoom = await _roomService.GetAllRoomAsync();
             return Ok(AllRoom);
         }
 
-        [HttpGet("FilteredByCapacity")]
+        [HttpGet("filtered/capacity")]
         public async Task<IActionResult> GetAllFilteredRoom(int capacity = 5)
         {
             var AllFilteredRoom = await _roomService.GetAllFilteredRoomAsync(capacity);

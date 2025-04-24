@@ -2,7 +2,7 @@
 
 namespace MeetingRoomBookingService.Repository
 {
-    public interface IRoomRepository
+    public interface IRoomRepository : IRepository<Room>
     {
         Task<List<Room>> GetAllRoomAsync();
         Task<List<Room>> GetAllFilteredRoomAsync(int capacity = 5);

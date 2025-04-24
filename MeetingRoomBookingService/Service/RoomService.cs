@@ -11,7 +11,7 @@ namespace MeetingRoomBookingService.Service
 
         public RoomService(IRoomRepository roomRepository) => _roomRepository = roomRepository;
 
-        public async Task<List<RoomResponseDTO>> GetAllRoomAsync()
+        public async Task<List<RoomResponseDTO>> GetAllRoomAsync(CancellationToken ct = default)
         {
             var AllRoomAsync = await _roomRepository.GetAllRoomAsync();
             return AllRoomAsync.Select(RoomMapper.RoomToDTO).ToList();
